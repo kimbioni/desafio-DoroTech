@@ -19,49 +19,55 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="homepage_container">
+    <main className="homepage_container">
       <div
         className="homepage_img"
         style={{ backgroundImage: `url(${RickandMorty})` }}
+        aria-hidden='true'
       ></div>
-      <div
+      <section
         //Se "showContent" for true, aplica uma nova classe (para mostrar o conteúdo) à essa div
         className={`homepage_content ${showContent ? "content-show" : ""}`}
+        aria-label="Introdução Rick and Morty"
       >
-        <div className="bg"></div>
-        <div className="star-field">
+        <div className="bg" aria-hidden="true"></div>
+        <div className="star-field" aria-hidden="true">
           <div className="layer"></div>
           <div className="layer"></div>
           <div className="layer"></div>
         </div>
         <div className="homepage_content-container">
-          <img src={RickandMorty_logo} alt="Rick and Morty" className="shake" />
-          <p className="line-1 shake anim-typewriter">
+          <img src={RickandMorty_logo} alt="Logo da série Rick and Morty" className="shake" />
+          <p className="line-1 shake anim-typewriter" aria-live="polite" id="description">
             Embarque nessa aventura alucinante com Rick e Morty! Clique em
             'Continuar' para descobrir curiosidades, explorar personagens,
             locais e episódios dessa série incrível.
           </p>
-          <Link to="/content" className=" animated-button shake">
+          <Link to="/content" className=" animated-button shake" role="button" aria-labelledby="description">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="arr-2"
               viewBox="0 0 24 24"
+              aria-hidden='true'
+              focusable='false'
             >
               <path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path>
             </svg>
             <span className="text">CONTINUAR</span>
-            <span className="circle"></span>
+            <span className="circle" aria-hidden='true'></span>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="arr-1"
               viewBox="0 0 24 24"
+              aria-hidden='true'
+              focusable='false'
             >
               <path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path>
             </svg>
           </Link>
         </div>
-      </div>
-    </div>
+      </section>
+    </main>
   );
 };
 
