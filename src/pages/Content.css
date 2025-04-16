@@ -1,0 +1,169 @@
+
+header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    h1 {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+    }
+}
+
+.container {
+  margin: 0 auto;
+  max-width: 2000px;
+}
+
+.container_content {
+  display: flex;
+
+  aside {
+    border: 2px solid black;
+    border-radius: 18px;
+    max-width: 400px;
+    max-height: 1000px;
+    flex: 0 0 300px;
+    margin: 0 1rem 0 1rem;
+  }
+}
+
+.container_card {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.card {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+
+  background-color: #d9afd9;
+  background-image: linear-gradient(0deg, #d9afd9 0%, #97d9e1 100%);
+
+  flex: 1 1 300px;
+  max-width: 400px;
+  overflow: hidden;
+  display: grid;
+  grid-template-areas:
+    "image"
+    "text"
+    "stats";
+  grid-template-rows: auto 1fr auto;
+  border-radius: 18px;
+  box-shadow: 0px 7px 17px 0px rgba(0, 0, 0, 0.4);
+  text-align: center;
+  color: #000000;
+
+  img {
+    width: 100%;
+  }
+
+  h2 {
+    font-size: 1.2rem;
+    padding: 2rem 0;
+    position: relative;
+
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 5px;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(to right, transparent, #000000, transparent);
+    }
+  }
+}
+
+.characterInfo {
+  text-transform: uppercase;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  div {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    color: rgb(0, 0, 0);
+    padding: 1rem;
+
+    p {
+      text-align: center;
+    }
+  }
+}
+
+.characterGender {
+  display: flex;
+  align-items: center;
+  img {
+    width: 30px;
+  }
+}
+
+.characterStatus {
+  font-size: 30px;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.status-alive {
+  animation: pulse 1.5s infinite;
+  color: #2ecc71; /* Verde */
+  display: inline-block;
+}
+
+@keyframes shake {
+  0% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-5deg);
+  }
+  50% {
+    transform: rotate(5deg);
+  }
+  75% {
+    transform: rotate(-3deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+.status-dead {
+  animation: shake 2s infinite;
+  color: #e74c3c; /* Vermelho */
+  display: inline-block;
+}
+
+@keyframes blink {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.3;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.status-unknown {
+  animation: blink 3s infinite;
+  color: #95a5a6; /* Cinza */
+}
+
