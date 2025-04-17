@@ -15,7 +15,7 @@ const HomeContent = ({content}) => {
         <StarField />
         <div className="homepage_content-container">
           <img src={RickandMorty_logo} alt="Logo da série Rick and Morty" className="shake" />
-          <p className="line-1 shake anim-typewriter" aria-live="polite" id="description">
+          <p className="line-1 shake" aria-live="polite" id="description">
             Embarque nessa aventura alucinante com Rick e Morty! Clique em
             'Continuar' para descobrir curiosidades, explorar personagens,
             locais e episódios dessa série incrível.
