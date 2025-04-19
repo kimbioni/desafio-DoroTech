@@ -1,7 +1,6 @@
 import React from 'react'
 import ContinueButton from './ContinueButton'
 import RickandMorty_logo from '../../assets/rickandmorty_logo.png'
-import './animations.css'
 import StarField from './StarField'
 
 const HomeContent = ({content}) => {
