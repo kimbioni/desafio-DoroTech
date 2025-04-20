@@ -14,7 +14,7 @@ const Content = () => {
   const [loading, setLoading] = useState(true);
 
   //estado inicial do value do selector de cards por página (inicia mostrando 20 cards)
-  const [valueCards, setValueCards] = useState(20);
+  const [valueCards, setValueCards] = useState(0);
 
   //estado inicial do value do selector de Gênero
   const [gender, setGender] = useState("All");
@@ -32,7 +32,7 @@ const Content = () => {
   //estado para o favorites (um para aplicar como favorito e outro para mostrar os favoritos)
   const [favorites, setFavorites] = useState([]);
   //estado para armazenar os dados completos dos favoritos
-  const [favoritesData, setFavoritesData] = useState([])
+  const [favoritesData, setFavoritesData] = useState([]);
   const [showFavorites, setShowFavorites] = useState(false);
 
   //aplicação de classes para mostrar/ocultar o filtro mobile
@@ -50,8 +50,8 @@ const Content = () => {
     }
   }, []);
 
-   // Efeito para buscar dados completos dos favoritos quando a lista de favoritos mudar
-   useEffect(() => {
+  // Efeito para buscar dados completos dos favoritos quando a lista de favoritos mudar
+  useEffect(() => {
     const fetchFavoriteCharacters = async () => {
       if (favorites.length === 0) {
         setFavoritesData([]);
@@ -60,11 +60,12 @@ const Content = () => {
 
       try {
         // Faz requisição para cada personagem favorito usando seus IDs
-        const favoritesPromises = favorites.map(id => 
-          fetch(`https://rickandmortyapi.com/api/character/${id}`)
-            .then(response => response.json())
+        const favoritesPromises = favorites.map((id) =>
+          fetch(`https://rickandmortyapi.com/api/character/${id}`).then(
+            (response) => response.json()
+          )
         );
-        
+
         const favCharacters = await Promise.all(favoritesPromises);
         setFavoritesData(favCharacters);
       } catch (error) {
@@ -84,6 +85,9 @@ const Content = () => {
   useEffect(() => {
     const fetchCharacters = async () => {
       try {
+        setLoading(true);
+
+        setFilteredCharacters([]);
         //faz a requisição para API
         const response = await fetch(
           `https://rickandmortyapi.com/api/character?page=${currentPage}`
@@ -92,11 +96,12 @@ const Content = () => {
         const data = await response.json();
         //Preenche o array vazio de characters com os dados da API (em formato json)
         setCharacters(data.results);
-        setFilteredCharacters(data.results);
         //Total de páginas disponíveis na API
-        setTotalPages(data.info.pages)
+        setTotalPages(data.info.pages);
         //Assim que preenchido os characters, loading é removido
         setLoading(false);
+
+        applyFilters(data.results);
       } catch (error) {
         //Mensagem de erro caso o consumo da API não seja possível
         console.log("Erro ao buscar personagens:", error);
@@ -122,7 +127,17 @@ const Content = () => {
     }, 300); // Debounce de 300ms
 
     return () => clearTimeout(debounceTimer); // Limpa o timer se o estado mudar antes do timeout
-  }, [searchChar, showFavorites, valueCards, gender, status, species, favorites, favoritesData, characters]);
+  }, [
+    searchChar,
+    showFavorites,
+    valueCards,
+    gender,
+    status,
+    species,
+    favorites,
+    favoritesData,
+    characters,
+  ]);
 
   //Função principal para aplicar os filtros
   const applyFilters = () => {
@@ -166,7 +181,7 @@ const Content = () => {
   //Função para adicionar/remover o estado de favorito de um personagem
   const toggleFavorite = (character) => {
     setFavorites((prev) => {
-      const isAlreadyFavorite = prev.includes(character.id)
+      const isAlreadyFavorite = prev.includes(character.id);
 
       const newFavorites = isAlreadyFavorite
         ? favorites.filter((id) => id !== character.id) //Aqui é feito a remoção caso já esteja favoritado
@@ -220,10 +235,16 @@ const Content = () => {
           filteredCharacters={filteredCharacters}
           favorites={favorites}
           toggleFavorite={toggleFavorite}
+          
         />
       </div>
-      {!showFavorites && (<Pagination currentPage={currentPage} totalPages={totalPages} setCurrentPage={setCurrentPage} />)}
-      
+      {!showFavorites && (
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          setCurrentPage={setCurrentPage}
+        />
+      )}
     </div>
   );
 };

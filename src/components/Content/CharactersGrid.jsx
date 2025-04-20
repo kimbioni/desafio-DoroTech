@@ -12,6 +12,7 @@ const CharactersGrid = ({ filteredCharacters, favorites, toggleFavorite }) => {
               onToggle={() => toggleFavorite(char)} />
             ))}
           </div>
+          
         </div>
   )
 }
