@@ -9,7 +9,7 @@ const CharactersGrid = ({ filteredCharacters, favorites, toggleFavorite }) => {
               <CharacterCard key={char.id}
               char={char}
               isFavorite={favorites.includes(char.id)}
-              onToggle={() => toggleFavorite(char.id)} />
+              onToggle={() => toggleFavorite(char)} />
             ))}
           </div>
         </div>

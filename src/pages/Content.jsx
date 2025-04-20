@@ -31,6 +31,8 @@ const Content = () => {
 
   //estado para o favorites (um para aplicar como favorito e outro para mostrar os favoritos)
   const [favorites, setFavorites] = useState([]);
+  //estado para armazenar os dados completos dos favoritos
+  const [favoritesData, setFavoritesData] = useState([])
   const [showFavorites, setShowFavorites] = useState(false);
 
   //aplicação de classes para mostrar/ocultar o filtro mobile
@@ -47,6 +49,31 @@ const Content = () => {
       setFavorites(JSON.parse(savedFavorites));
     }
   }, []);
+
+   // Efeito para buscar dados completos dos favoritos quando a lista de favoritos mudar
+   useEffect(() => {
+    const fetchFavoriteCharacters = async () => {
+      if (favorites.length === 0) {
+        setFavoritesData([]);
+        return;
+      }
+
+      try {
+        // Faz requisição para cada personagem favorito usando seus IDs
+        const favoritesPromises = favorites.map(id => 
+          fetch(`https://rickandmortyapi.com/api/character/${id}`)
+            .then(response => response.json())
+        );
+        
+        const favCharacters = await Promise.all(favoritesPromises);
+        setFavoritesData(favCharacters);
+      } catch (error) {
+        console.log("Erro ao buscar personagens favoritos:", error);
+      }
+    };
+
+    fetchFavoriteCharacters();
+  }, [favorites]);
 
   //function para alternar a visibilidade/estilo dos filtros na versão mobile
   const toggleFilters = () => {
@@ -95,11 +122,11 @@ const Content = () => {
     }, 300); // Debounce de 300ms
 
     return () => clearTimeout(debounceTimer); // Limpa o timer se o estado mudar antes do timeout
-  }, [searchChar, favorites, showFavorites, valueCards]);
+  }, [searchChar, showFavorites, valueCards, gender, status, species, favorites, favoritesData, characters]);
 
   //Função principal para aplicar os filtros
   const applyFilters = () => {
-    let result = [...characters]; //Estado inicial mostrando todos os personagens
+    let result = showFavorites ? [...favoritesData] : [...characters];
 
     //Filtro de favoritos
     if (showFavorites) {
@@ -137,11 +164,13 @@ const Content = () => {
   };
 
   //Função para adicionar/remover o estado de favorito de um personagem
-  const toggleFavorite = (characterId) => {
+  const toggleFavorite = (character) => {
     setFavorites((prev) => {
-      const newFavorites = prev.includes(characterId)
-        ? prev.filter((id) => id !== characterId) //Aqui é feito a remoção caso já esteja favoritado
-        : [...prev, characterId]; //Aqui adiciona ao array junto dos outros (quando recebe estado de favorito)
+      const isAlreadyFavorite = prev.includes(character.id)
+
+      const newFavorites = isAlreadyFavorite
+        ? favorites.filter((id) => id !== character.id) //Aqui é feito a remoção caso já esteja favoritado
+        : [...prev, character.id]; //Aqui adiciona ao array junto dos outros (quando recebe estado de favorito)
 
       //Salva no localStorage
       localStorage.setItem(
@@ -193,7 +222,8 @@ const Content = () => {
           toggleFavorite={toggleFavorite}
         />
       </div>
-      <Pagination currentPage={currentPage} totalPages={totalPages} setCurrentPage={setCurrentPage} />
+      {!showFavorites && (<Pagination currentPage={currentPage} totalPages={totalPages} setCurrentPage={setCurrentPage} />)}
+      
     </div>
   );
 };
