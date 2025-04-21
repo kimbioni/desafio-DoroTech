@@ -52,18 +52,25 @@ O projeto utiliza os principais hooks do React para gerenciamento de estado e ef
 
 ## 📸 Imagens do projeto
 
+Home page
 ![Home page](./src/assets/ssProject/homePage.png)
 
+[Versão desktop
 ![Versão desktop](./src/assets/ssProject/desktop_version.png)
 
+Versão mobile 1
 ![Versão mobile 1](./src/assets/ssProject/mobile_version_1.png)
 
+Versão mobile 2
 ![Versão mobile 2](./src/assets/ssProject/mobile_version_2.png)
 
+Filtro Favoritos
 ![Filtro Favoritos](./src/assets/ssProject/favorites_filter.png)
 
+Função de multiplos filtros
 ![Função de multiplos filtros](./src/assets/ssProject/multipleFilters_feature.png)
 
+Modal Cards
 ![Modal Cards](./src/assets/ssProject/modal_example.png)
 
 ---
