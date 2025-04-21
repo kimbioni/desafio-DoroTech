@@ -53,18 +53,25 @@ O projeto utiliza os principais hooks do React para gerenciamento de estado e ef
 ## 📸 Imagens do projeto
 
 ![Home page](./src/assets/ssProject/homePage.png)
+**Figura 1**: Página inicial do projeto exibindo a Home Page.
 
 ![Versão desktop](./src/assets/ssProject/desktop_version.png)
+**Figura 2**: Página principal do projeto exibindo o conteúdo completo na versão desktop.
 
 ![Versão mobile 1](./src/assets/ssProject/mobile_version_1.png)
+**Figura 3**: Página principal do projeto exibindo o conteúdo completo na versão mobile.
 
 ![Versão mobile 2](./src/assets/ssProject/mobile_version_2.png)
+**Figura 4**: Página principal do projeto exibindo o conteúdo completo na versão mobile + filtro retrátil.
 
 ![Filtro Favoritos](./src/assets/ssProject/favorites_filter.png)
+**Figura 5**: Exibição da funcionalidade de favoritos, utilizando localStorage para armazenar os cards
 
 ![Função de multiplos filtros](./src/assets/ssProject/multipleFilters_feature.png)
+**Figura 6**: Exibição da funcionalidade de multiplos filtros, podendo filtrar os cards utilizando 1 ou mais filtros
 
 ![Modal Cards](./src/assets/ssProject/modal_example.png)
+**Figura 7**: Modal de cards contendo mais informaçõs dos personagens
 
 ---
 
