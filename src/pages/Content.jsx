@@ -59,15 +59,15 @@ const Content = () => {
       }
 
       try {
+        const validFavorites = favorites.filter(id => typeof id === 'number' || !isNaN(Number(id)))
         // Faz requisição para cada personagem favorito usando seus IDs
-        const favoritesPromises = favorites.map((id) =>
-          fetch(`https://rickandmortyapi.com/api/character/${id}`).then(
-            (response) => response.json()
-          )
+        const response = await fetch(
+          `https://rickandmortyapi.com/api/character/${validFavorites.join(',')}`
         );
 
-        const favCharacters = await Promise.all(favoritesPromises);
-        setFavoritesData(favCharacters);
+        const favCharacters = await response.json();
+        // A API retorna um array quando há múltiplos IDs, ou um objeto quando há apenas um
+      setFavoritesData(Array.isArray(favCharacters) ? favCharacters : [favCharacters]);
       } catch (error) {
         console.log("Erro ao buscar personagens favoritos:", error);
       }
@@ -131,9 +131,6 @@ const Content = () => {
     searchChar,
     showFavorites,
     valueCards,
-    gender,
-    status,
-    species,
     favorites,
     favoritesData,
     characters,

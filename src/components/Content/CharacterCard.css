@@ -1,0 +1,50 @@
+.modalCard{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 18px;
+    color: white;
+
+    img {
+        position: absolute;
+        top: -250px;
+        width: 300px;
+        border-radius: 50%;
+        border: 2px solid var(--light-blue);
+    }
+}
+
+#modal-description {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    margin-top: 2rem;
+
+    h2 {
+        font-size: 1.6rem;
+        letter-spacing: 1px;
+        margin-top: 1rem;
+        color: var(--light-blue);
+    }
+    p{
+        font-size: 1.1rem;
+        color: var(--light-blue);
+
+        span {
+            color: white;
+        }
+    }
+}
+
+
+
+.modalInfo_content {
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    letter-spacing: 1PX;
+}
