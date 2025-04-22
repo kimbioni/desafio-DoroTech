@@ -81,3 +81,6 @@ O projeto utiliza os principais hooks do React para gerenciamento de estado e ef
    ```bash
    git clone https://github.com/seu-usuario/rick-and-morty-explorer.git
 
+## 🧪 Deploy do projeto
+
+https://desafio-dorotech-beta.vercel.app/
