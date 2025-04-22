@@ -1,6 +1,8 @@
 import React from 'react'
 import CharacterCard from './CharacterCard'
 
+
+
 const CharactersGrid = ({ filteredCharacters, favorites, toggleFavorite }) => {
   return (
       <div className="cards">
