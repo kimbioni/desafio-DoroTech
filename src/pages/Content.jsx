@@ -112,29 +112,34 @@ const Content = () => {
         const response = await fetch(
           `https://rickandmortyapi.com/api/character?${params.toString()}`
         );
-        const data = await response.json();
 
+        if (!response.ok) {
+          if (response.status === 404) {
+            setCharacters([]);
+            setFilteredCharacters([]);
+            setTotalPages(0);
+          }
+          return;
+        }
+  
+        const data = await response.json();
         setCharacters(data.results);
         setTotalPages(data.info.pages);
-
-        // Aplica limite de cards imediatamente
-        const limitedResults =
-          valueCards > 0 ? data.results.slice(0, valueCards) : data.results;
-
-        setFilteredCharacters(limitedResults);
         setLoading(false);
       } catch (error) {
         console.log("Erro ao buscar personagens:", error);
+        setCharacters([]);
+        setFilteredCharacters([]);
         setLoading(false);
       }
-    };   
+    }; 
 
     const debounceTimer = setTimeout(() => {
       fetchCharacters();
     }, 500);
     
     return () => clearTimeout(debounceTimer)
-  }, [currentPage, searchChar, valueCards]);
+  }, [currentPage]);
 
   //Sempre que os personagens mudarem, sincroniza com os filtrados
   useEffect(() => {
