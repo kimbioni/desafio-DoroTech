@@ -96,11 +96,11 @@ const Content = () => {
       applyFilters();
       return;
     }
+  
     const fetchCharacters = async () => {
       try {
         setLoading(true);
-
-        // Constrói a query string dinamicamente
+  
         const params = new URLSearchParams({
           page: currentPage,
           ...(searchChar && { name: searchChar }),
@@ -108,11 +108,11 @@ const Content = () => {
           ...(species !== "All" && { species }),
           ...(gender !== "All" && { gender }),
         });
-
+  
         const response = await fetch(
           `https://rickandmortyapi.com/api/character?${params.toString()}`
         );
-
+  
         if (!response.ok) {
           if (response.status === 404) {
             setCharacters([]);
@@ -132,19 +132,19 @@ const Content = () => {
         setFilteredCharacters([]);
         setLoading(false);
       }
-    }; 
-
+    };
+  
     const debounceTimer = setTimeout(() => {
       fetchCharacters();
     }, 500);
-    
-    return () => clearTimeout(debounceTimer)
-  }, [currentPage]);
+  
+    return () => clearTimeout(debounceTimer);
+  }, [currentPage, searchChar, status, species, gender]);
 
   //Sempre que os personagens mudarem, sincroniza com os filtrados
   useEffect(() => {
     setFilteredCharacters(characters);
-  }, [characters]);
+  }, [characters, searchChar]);
 
   // Efeito para aplicar filtros com debounce (evita muitas execuções)
   useEffect(() => {
@@ -193,11 +193,6 @@ const Content = () => {
     //Filtro de espécies
     if (species !== "All") {
       result = result.filter((char) => char.species === species);
-    }
-
-    //Limita a quantidade de cards exibidos
-    if (valueCards > 0) {
-      result = result.slice(0, valueCards);
     }
 
     setFilteredCharacters(result);
@@ -260,6 +255,7 @@ const Content = () => {
           filteredCharacters={filteredCharacters}
           favorites={favorites}
           toggleFavorite={toggleFavorite}
+          valueCards={valueCards}
         />
       </div>
       {!showFavorites && (
