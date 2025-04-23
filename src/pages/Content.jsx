@@ -92,6 +92,10 @@ const Content = () => {
 
   //Função principal de acesso à API rick and morty, executada ao mudar de página
   useEffect(() => {
+    if (showFavorites) {
+      applyFilters();
+      return;
+    }
     const fetchCharacters = async () => {
       try {
         setLoading(true);
@@ -123,18 +127,13 @@ const Content = () => {
         console.log("Erro ao buscar personagens:", error);
         setLoading(false);
       }
-    };
+    };   
 
-    //Executa a busca se não estiver na página de favoritos, caso contrário ...
-    if (!showFavorites) {
+    const debounceTimer = setTimeout(() => {
       fetchCharacters();
-    } else {
-      // Aplica limite de cards também nos favoritos
-      const processedFavorites =
-        valueCards > 0 ? favoritesData.slice(0, valueCards) : favoritesData;
-      //... executa o favoritos
-      setFilteredCharacters(processedFavorites);
-    }
+    }, 500);
+    
+    return () => clearTimeout(debounceTimer)
   }, [currentPage, searchChar, valueCards, showFavorites, favoritesData]);
 
   //Sempre que os personagens mudarem, sincroniza com os filtrados
@@ -148,7 +147,7 @@ const Content = () => {
 
     const debounceTimer = setTimeout(() => {
       applyFilters();
-    }, 300); // Debounce de 300ms
+    }, 500); // Debounce de 500ms
 
     return () => clearTimeout(debounceTimer); // Limpa o timer se o estado mudar antes do timeout
   }, [
@@ -158,7 +157,6 @@ const Content = () => {
     valueCards,
     favorites,
     favoritesData,
-    characters,
   ]);
 
   //Função principal para aplicar os filtros
