@@ -1,6 +1,6 @@
 import React from "react";
 
-import { IconButton, Button, Stack } from "@mui/material";
+import { Button } from "@mui/material";
 import FavoriteTwoToneIcon from "@mui/icons-material/FavoriteTwoTone";
 import FavoriteBorderTwoToneIcon from "@mui/icons-material/FavoriteBorderTwoTone";
 
