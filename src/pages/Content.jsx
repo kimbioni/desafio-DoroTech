@@ -134,7 +134,7 @@ const Content = () => {
     }, 500);
     
     return () => clearTimeout(debounceTimer)
-  }, [currentPage, searchChar, valueCards, showFavorites, favoritesData]);
+  }, [currentPage, searchChar, valueCards]);
 
   //Sempre que os personagens mudarem, sincroniza com os filtrados
   useEffect(() => {

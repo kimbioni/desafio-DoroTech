@@ -427,3 +427,17 @@ header {
     width: 90%;
   }
 }
+
+@media (max-width: 450px) {
+  .contentSearch {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    max-width: 300px;
+  }
+
+  .contentLogo {
+    max-width: 300px;
+  }
+
+}
